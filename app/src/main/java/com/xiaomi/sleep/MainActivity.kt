@@ -1,6 +1,5 @@
 package com.xiaomi.sleep
 
-import android.app.Activity
 import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
@@ -9,12 +8,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 /**
  * XiaomiSleep 极简主界面
  */
-class MainActivity : Activity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var tvStatus: TextView
     private lateinit var tvMediaStatus: TextView
@@ -94,11 +95,11 @@ class MainActivity : Activity() {
         val hasNotificationAccess = isNotificationServiceEnabled()
         if (hasNotificationAccess) {
             tvMediaStatus.text = "● 媒体高级控制：已授权 (可精确控制所有 App 播放器)"
-            tvMediaStatus.setTextColor(getColor(R.color.green_status))
+            tvMediaStatus.setTextColor(ContextCompat.getColor(this, R.color.green_status))
             btnGrantPermission.visibility = View.GONE
         } else {
             tvMediaStatus.text = "● 媒体控制模式：基础线控模式 (建议授权增强兼容性)"
-            tvMediaStatus.setTextColor(getColor(R.color.text_sub))
+            tvMediaStatus.setTextColor(ContextCompat.getColor(this, R.color.text_sub))
             btnGrantPermission.visibility = View.VISIBLE
         }
     }
