@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xiaomi.sleep">
+
+    <!-- 允许调节音频音量以实现平滑淡出 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@android:drawable/ic_lock_idle_alarm"
+        android:label="XiaomiSleep"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.XiaomiSleep">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 静态注册手环入睡广播接收器 -->
+        <receiver
+            android:name=".SleepBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <!-- 小米手环后台驱动入睡广播 Action -->
+                <action android:name="com.mc.xiaomi.tasker.fellAsleep" />
+                <action android:name="com.mc.miband.tasker.fellAsleep" />
+                <!-- 专属快捷广播 Action -->
+                <action android:name="com.xiaomi.sleep.ACTION_SLEEP_PAUSE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 媒体会话精准控制服务：精准接管并暂停网易云音乐、QQ音乐、播客、微信读书、B站等 -->
+        <service
+            android:name=".MediaSessionListenerService"
+            android:exported="true"
+            android:label="XiaomiSleep 媒体精准接管服务"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>

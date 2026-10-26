@@ -1,0 +1,10 @@
+<resources>
+    <color name="primary">#FF6700</color> <!-- 小米橙风格主色 -->
+    <color name="primary_dark">#D85500</color>
+    <color name="accent">#FF8533</color>
+    <color name="bg_light">#F5F5F7</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="text_main">#1F1F1F</color>
+    <color name="text_sub">#757575</color>
+    <color name="green_status">#2E7D32</color>
+</resources>
