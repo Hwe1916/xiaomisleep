@@ -57,7 +57,7 @@
                     android:id="@+id/tvStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="● 手环入睡监听：已就绪"
+                    android:text="● 监听状态：已就绪"
                     android:textColor="@color/green_status"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp" />
@@ -102,19 +102,37 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="助眠体验"
+                    android:text="助眠体验配置"
                     android:textStyle="bold"
                     android:textSize="15sp"
                     android:textColor="@color/text_main" />
 
+                <!-- 原生手环勿扰联动（免第三方App） -->
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchDndSync"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="手环入睡勿扰同步暂停 (官方推荐)"
+                    android:textSize="14sp"
+                    android:layout_marginTop="6dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="手环检测到入睡后会自动开启手环勿扰，同步到手机后自动淡出暂停。100% 兼容小米运动健康与手环全功能，无需任何第三方App！"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_sub"
+                    android:layout_marginBottom="10dp" />
+
+                <!-- 音量淡出开关 -->
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchFadeOut"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="入睡后音量平滑淡出 (推荐)"
-                    android:textSize="14sp"
-                    android:layout_marginTop="6dp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -122,8 +140,9 @@
                     android:text="检测到入睡后在 15 秒内渐变降至静音再暂停，避免声音骤停把人惊醒。"
                     android:textSize="12sp"
                     android:textColor="@color/text_sub"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="10dp" />
 
+                <!-- 床头静止辅助 -->
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/switchBedsideMonitor"
                     android:layout_width="match_parent"

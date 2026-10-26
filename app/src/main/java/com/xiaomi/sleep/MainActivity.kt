@@ -1,6 +1,7 @@
 package com.xiaomi.sleep
 
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvStatus: TextView
     private lateinit var tvMediaStatus: TextView
     private lateinit var btnGrantPermission: Button
+    private lateinit var switchDndSync: SwitchMaterial
     private lateinit var switchFadeOut: SwitchMaterial
     private lateinit var switchBedsideMonitor: SwitchMaterial
     private lateinit var btnTestImmediate: Button
@@ -44,15 +46,28 @@ class MainActivity : AppCompatActivity() {
         tvStatus = findViewById(R.id.tvStatus)
         tvMediaStatus = findViewById(R.id.tvMediaStatus)
         btnGrantPermission = findViewById(R.id.btnGrantPermission)
+        switchDndSync = findViewById(R.id.switchDndSync)
         switchFadeOut = findViewById(R.id.switchFadeOut)
         switchBedsideMonitor = findViewById(R.id.switchBedsideMonitor)
         btnTestImmediate = findViewById(R.id.btnTestImmediate)
         btnTestFadeOut = findViewById(R.id.btnTestFadeOut)
 
-        tvStatus.text = "● 手环入睡监听：已就绪 (广播接收模式)"
+        val prefs = getSharedPreferences("xiaomi_sleep_prefs", Context.MODE_PRIVATE)
+        switchDndSync.isChecked = prefs.getBoolean(MediaSessionListenerService.KEY_DND_PAUSE_ENABLED, true)
+
+        tvStatus.text = "● 监听状态：已就绪 (官方勿扰模式 + 广播监听)"
     }
 
     private fun setupListeners() {
+        val prefs = getSharedPreferences("xiaomi_sleep_prefs", Context.MODE_PRIVATE)
+
+        // 手环勿扰同步开关
+        switchDndSync.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean(MediaSessionListenerService.KEY_DND_PAUSE_ENABLED, isChecked).apply()
+            val msg = if (isChecked) "已开启手环勿扰联动暂停" else "已关闭勿扰联动"
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+        }
+
         // 跳转授予通知使用权（用于精准读取并控制各播放器的 MediaSession）
         btnGrantPermission.setOnClickListener {
             val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
